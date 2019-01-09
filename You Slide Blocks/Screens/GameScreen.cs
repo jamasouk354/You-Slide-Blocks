@@ -19,9 +19,13 @@ namespace You_Slide_Blocks
         //player2 button control keys - DO NOT CHANGE
         //Boolean aDown, sDown, dDown, wDown, cDown, vDown, xDown, zDown;
 
-        //TODO create your global game variables here
+        //Player's Block
         int blockX, blockY, blockSize, blockSpeed;
-        SolidBrush heroBrush = new SolidBrush(Color.Black);
+        SolidBrush blockBrush = new SolidBrush(Color.Brown);
+
+        //Blocks
+        int blocksX, blocksY, blocksSize, blocksSpeed;
+        SolidBrush blocksBrush = new SolidBrush(Color.BurlyWood);
 
         public GameScreen()
         {
@@ -150,7 +154,7 @@ namespace You_Slide_Blocks
         private void GameScreen_Paint(object sender, PaintEventArgs e)
         {
             //draw rectangle to screen
-            e.Graphics.FillRectangle(heroBrush, blockX, blockY, blockLength, blockWidth);
+            e.Graphics.FillRectangle(blockBrush, blockX, blockY, blockSize, blockSize);
         }
     }
 
