@@ -113,7 +113,7 @@ namespace You_Slide_Blocks
         /// <summary>
         /// This is the Game Engine and repeats on each interval of the timer. For example
         /// if the interval is set to 16 then it will run each 16ms or approx. 50 times
-        /// per second
+        /// per second test
         /// </summary>
         private void gameTimer_Tick(object sender, EventArgs e)
         {
