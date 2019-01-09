@@ -17,10 +17,10 @@ namespace You_Slide_Blocks
         Boolean leftArrowDown, downArrowDown, rightArrowDown, upArrowDown, bDown, nDown, mDown, spaceDown;
 
         //player2 button control keys - DO NOT CHANGE
-        Boolean aDown, sDown, dDown, wDown, cDown, vDown, xDown, zDown;
+        //Boolean aDown, sDown, dDown, wDown, cDown, vDown, xDown, zDown;
 
         //TODO create your global game variables here
-        int heroX, heroY, heroSize, heroSpeed;
+        int blockX, blockY, blockSize, blockSpeed;
         SolidBrush heroBrush = new SolidBrush(Color.Black);
 
         public GameScreen()
@@ -33,10 +33,10 @@ namespace You_Slide_Blocks
         {
             //TODO - setup all your initial game values here. Use this method
             // each time you restart your game to reset all values.
-            heroX = 100;
-            heroY = 100;
-            heroSize = 20;
-            heroSpeed = 5;
+            blockX = 100;
+            blockY = 100;
+            blockSize = 20;
+            blockSpeed = 5;
         }
 
         private void GameScreen_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
@@ -120,19 +120,19 @@ namespace You_Slide_Blocks
             //TODO move main character 
             if (leftArrowDown == true)
             {
-                heroX = heroX - heroSpeed;
+                blockX = blockX - blockSpeed;
             }
             if (downArrowDown == true)
             {
-                heroY = heroY + heroSpeed;
+                blockY = blockY + blockSpeed;
             }
             if (rightArrowDown == true)
             {
-                heroX = heroX + heroSpeed;
+                blockX = blockX + blockSpeed;
             }
             if (upArrowDown == true)
             {
-                heroY = heroY - heroSpeed;
+                blockY = blockY - blockSpeed;
             }
 
             //TODO move npc characters
@@ -150,7 +150,7 @@ namespace You_Slide_Blocks
         private void GameScreen_Paint(object sender, PaintEventArgs e)
         {
             //draw rectangle to screen
-            e.Graphics.FillRectangle(heroBrush, heroX, heroY, heroSize, heroSize);
+            e.Graphics.FillRectangle(heroBrush, blockX, blockY, blockLength, blockWidth);
         }
     }
 
