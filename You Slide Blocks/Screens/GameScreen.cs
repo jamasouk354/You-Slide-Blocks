@@ -13,20 +13,23 @@ namespace You_Slide_Blocks
 {
     public partial class GameScreen : UserControl
     {
-        //player1 button control keys - DO NOT CHANGE
+        //Player Controls
         Boolean leftArrowDown, downArrowDown, rightArrowDown, upArrowDown, bDown, nDown, mDown, spaceDown;
 
-        //player2 button control keys - DO NOT CHANGE
-        //Boolean aDown, sDown, dDown, wDown, cDown, vDown, xDown, zDown;
-
         //Player's Block
-        int blockX, blockY, blockSize, blockSpeed;
+        int blockX, blockY, blockWidth, blockLength, blockSpeed;
         SolidBrush blockBrush = new SolidBrush(Color.Brown);
 
         //Blocks
         int blocksX, blocksY, blocksSize, blocksSpeed;
         SolidBrush blocksBrush = new SolidBrush(Color.BurlyWood);
 
+        List<int> levelList = new List<int>();
+        List<int> blockSide = new List<int>();
+        List<int> blockCount = new List<int>();
+
+        //Border
+        SolidBrush borderBrush = new SolidBrush(Color.Firebrick);
         public GameScreen()
         {
             InitializeComponent();
@@ -35,11 +38,11 @@ namespace You_Slide_Blocks
 
         public void InitializeGameValues()
         {
-            //TODO - setup all your initial game values here. Use this method
-            // each time you restart your game to reset all values.
+
             blockX = 100;
-            blockY = 100;
-            blockSize = 20;
+            blockY = 200;
+            blockWidth = 100;
+            blockLength = 50;
             blockSpeed = 5;
         }
 
@@ -72,21 +75,30 @@ namespace You_Slide_Blocks
             {
                 case Keys.Left:
                     leftArrowDown = true;
+                    downArrowDown = false;
+                    rightArrowDown = false;
+                    upArrowDown = false;
                     break;
                 case Keys.Down:
                     downArrowDown = true;
+                    rightArrowDown = false;
+                    upArrowDown = false;
+                    leftArrowDown = false;
                     break;
                 case Keys.Right:
                     rightArrowDown = true;
+                    leftArrowDown = false;
+                    upArrowDown = false;
+                    downArrowDown = false;
                     break;
                 case Keys.Up:
                     upArrowDown = true;
+                    downArrowDown = false;
+                    leftArrowDown = false;
+                    rightArrowDown = false;
                     break;
                 case Keys.Space:
                     spaceDown = true;
-                    break;
-                case Keys.M:
-                    mDown = true;
                     break;
             }
         }
@@ -111,39 +123,66 @@ namespace You_Slide_Blocks
                 case Keys.Up:
                     upArrowDown = false;
                     break;
+                case Keys.Space:
+                    spaceDown = false;
+                    break;
             }
         }
 
         /// <summary>
-        /// This is the Game Engine and repeats on each interval of the timer. For example
-        /// if the interval is set to 16 then it will run each 16ms or approx. 50 times
-        /// per second test
+        /// Timer
         /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void gameTimer_Tick(object sender, EventArgs e)
         {
-            //TODO move main character 
+            //Main Controls
             if (leftArrowDown == true)
             {
                 blockX = blockX - blockSpeed;
+
+                if (blockX < 13)
+                {
+                    blockX = 13;
+                }
+
             }
             if (downArrowDown == true)
             {
                 blockY = blockY + blockSpeed;
+
+                if (blockY > this.Height - 64)
+                {
+                    blockY = this.Width - 64;
+                }
             }
             if (rightArrowDown == true)
             {
                 blockX = blockX + blockSpeed;
+
+                if (blockX > this.Width - 114)
+                {
+                    blockX = this.Width - 114;
+                }
             }
             if (upArrowDown == true)
             {
                 blockY = blockY - blockSpeed;
+
+                if (blockY < 13)
+                {
+                    blockY = 13;
+                }
             }
+            
+            //Border Restrictions
 
             //TODO move npc characters
 
 
-            //TODO collisions checks 
 
+            //TODO collisions checks 
+            
 
             //calls the GameScreen_Paint method to draw the screen.
             Refresh();
@@ -154,7 +193,13 @@ namespace You_Slide_Blocks
         private void GameScreen_Paint(object sender, PaintEventArgs e)
         {
             //draw rectangle to screen
-            e.Graphics.FillRectangle(blockBrush, blockX, blockY, blockSize, blockSize);
+            e.Graphics.FillRectangle(blockBrush, blockX, blockY, blockWidth, blockLength);
+
+            //Border
+            e.Graphics.FillRectangle(borderBrush, 0, 0, 10, this.Height);
+            e.Graphics.FillRectangle(borderBrush, 0, 0, this.Width, 10);
+            e.Graphics.FillRectangle(borderBrush, this.Width-11, 0, 11, this.Height);
+            e.Graphics.FillRectangle(borderBrush, 0, this.Height-11, this.Width, 11);
         }
     }
 
