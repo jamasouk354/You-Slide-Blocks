@@ -22,11 +22,13 @@ namespace You_Slide_Blocks
 
         //Blocks
         int blocksX, blocksY, blocksSize, blocksSpeed;
-        SolidBrush blocksBrush = new SolidBrush(Color.BurlyWood);
+        SolidBrush blocksBrush = new SolidBrush(Color.SandyBrown);
 
         List<int> levelList = new List<int>();
-        List<int> blockSide = new List<int>();
-        List<int> blockCount = new List<int>();
+        List<int> blockSizeList = new List<int>();
+        List<int> blockCountList = new List<int>();
+        List<int> blockXList = new List<int>();
+        List<int> blockYList = new List<int>();
 
         //Border
         SolidBrush borderBrush = new SolidBrush(Color.Firebrick);
@@ -38,12 +40,13 @@ namespace You_Slide_Blocks
 
         public void InitializeGameValues()
         {
-
             blockX = 100;
             blockY = 200;
             blockWidth = 100;
             blockLength = 50;
             blockSpeed = 5;
+
+
         }
 
         private void GameScreen_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
@@ -153,7 +156,7 @@ namespace You_Slide_Blocks
 
                 if (blockY > this.Height - 64)
                 {
-                    blockY = this.Width - 64;
+                    blockY = this.Height - 64;
                 }
             }
             if (rightArrowDown == true)
@@ -197,9 +200,12 @@ namespace You_Slide_Blocks
 
             //Border
             e.Graphics.FillRectangle(borderBrush, 0, 0, 10, this.Height);
-            e.Graphics.FillRectangle(borderBrush, 0, 0, this.Width, 10);
+            e.Graphics.FillRectangle(borderBrush, 0, 0, this.Width, 32);
             e.Graphics.FillRectangle(borderBrush, this.Width-11, 0, 11, this.Height);
             e.Graphics.FillRectangle(borderBrush, 0, this.Height-11, this.Width, 11);
+
+            //Blocks
+            e.Graphics.FillRectangle(blocksBrush, 11, 33, 282, 282);
         }
     }
 
