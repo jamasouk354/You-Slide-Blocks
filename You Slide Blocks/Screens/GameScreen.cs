@@ -25,7 +25,8 @@ namespace You_Slide_Blocks
         SolidBrush blocksBrush = new SolidBrush(Color.SandyBrown);
 
         List<int> levelList = new List<int>();
-        List<int> blockSizeList = new List<int>();
+        List<int> blockWidthList = new List<int>();
+        List<int> blockLengthList = new List<int>();
         List<int> blockCountList = new List<int>();
         List<int> blockXList = new List<int>();
         List<int> blockYList = new List<int>();
@@ -42,11 +43,11 @@ namespace You_Slide_Blocks
         {
             blockX = 100;
             blockY = 200;
-            blockWidth = 100;
-            blockLength = 50;
+            blockWidth = 90;
+            blockLength = 45;
             blockSpeed = 5;
 
-
+            blockXList.Add(0);
         }
 
         private void GameScreen_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
@@ -144,9 +145,9 @@ namespace You_Slide_Blocks
             {
                 blockX = blockX - blockSpeed;
 
-                if (blockX < 13)
+                if (blockX < 12)
                 {
-                    blockX = 13;
+                    blockX = 12;
                 }
 
             }
@@ -154,27 +155,27 @@ namespace You_Slide_Blocks
             {
                 blockY = blockY + blockSpeed;
 
-                if (blockY > this.Height - 64)
+                if (blockY > this.Height - 58)
                 {
-                    blockY = this.Height - 64;
+                    blockY = this.Height - 58;
                 }
             }
             if (rightArrowDown == true)
             {
                 blockX = blockX + blockSpeed;
 
-                if (blockX > this.Width - 114)
+                if (blockX > this.Width - 103)
                 {
-                    blockX = this.Width - 114;
+                    blockX = this.Width - 103;
                 }
             }
             if (upArrowDown == true)
             {
                 blockY = blockY - blockSpeed;
 
-                if (blockY < 13)
+                if (blockY < 34)
                 {
-                    blockY = 13;
+                    blockY = 34;
                 }
             }
             
@@ -195,6 +196,9 @@ namespace You_Slide_Blocks
         //Everything that is to be drawn on the screen should be done here
         private void GameScreen_Paint(object sender, PaintEventArgs e)
         {
+            //Blocks
+            e.Graphics.FillRectangle(blocksBrush, 11, 33, 284, 284);
+
             //draw rectangle to screen
             e.Graphics.FillRectangle(blockBrush, blockX, blockY, blockWidth, blockLength);
 
@@ -204,8 +208,7 @@ namespace You_Slide_Blocks
             e.Graphics.FillRectangle(borderBrush, this.Width-11, 0, 11, this.Height);
             e.Graphics.FillRectangle(borderBrush, 0, this.Height-11, this.Width, 11);
 
-            //Blocks
-            e.Graphics.FillRectangle(blocksBrush, 11, 33, 282, 282);
+
         }
     }
 
