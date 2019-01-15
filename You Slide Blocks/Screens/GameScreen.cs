@@ -13,23 +13,29 @@ namespace You_Slide_Blocks
 {
     public partial class GameScreen : UserControl
     {
+        //Timer Values - *DO LATER*
+        int counter = 0;
+        int hundredsCounter = 0;
+        int secondsCounter = 0;
+        int minutesCounter = 0;
+
         //Player Controls
-        Boolean leftArrowDown, downArrowDown, rightArrowDown, upArrowDown, bDown, nDown, mDown, spaceDown;
+        Boolean leftArrowDown, downArrowDown, rightArrowDown, upArrowDown, bDown, nDown, mDown, spaceDown, timer;
 
         //Player's Block
         int blockX, blockY, blockWidth, blockLength, blockSpeed;
         SolidBrush blockBrush = new SolidBrush(Color.Brown);
 
         //Blocks
-        int blocksX, blocksY, blocksSize, blocksSpeed;
         SolidBrush blocksBrush = new SolidBrush(Color.SandyBrown);
 
         List<int> levelList = new List<int>();
         List<int> blockWidthList = new List<int>();
         List<int> blockLengthList = new List<int>();
-        List<int> blockCountList = new List<int>();
         List<int> blockXList = new List<int>();
         List<int> blockYList = new List<int>();
+
+        SolidBrush backGroundColor = new SolidBrush(Color.White);
 
         //Border
         SolidBrush borderBrush = new SolidBrush(Color.Firebrick);
@@ -41,13 +47,28 @@ namespace You_Slide_Blocks
 
         public void InitializeGameValues()
         {
-            blockX = 100;
-            blockY = 200;
+            blockX = 12;
+            blockY = 126;
             blockWidth = 90;
             blockLength = 45;
-            blockSpeed = 5;
+            blockSpeed = 15;
 
-            blockXList.Add(0);
+
+            blockXList.Add(12);
+            blockYList.Add(34);
+            blockWidthList.Add(45);
+            blockLengthList.Add(91);
+
+            if (timer == true)
+            {
+                gameTimer.Interval = 20;
+                gameTimer.Enabled = true;
+            }
+            //DO LATER
+            else if (timer == false)
+            {
+
+            }
         }
 
         private void GameScreen_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
@@ -71,39 +92,35 @@ namespace You_Slide_Blocks
                 }
             }
 
-            //TODO - basic player 1 key down bools set below. Add remainging key down
-            // required for player 1 or player 2 here.
-
             //player 1 button presses
-            switch (e.KeyCode)
+            if (blockX == 45 && blockY < 45)
             {
-                case Keys.Left:
-                    leftArrowDown = true;
-                    downArrowDown = false;
-                    rightArrowDown = false;
-                    upArrowDown = false;
-                    break;
-                case Keys.Down:
-                    downArrowDown = true;
-                    rightArrowDown = false;
-                    upArrowDown = false;
-                    leftArrowDown = false;
-                    break;
-                case Keys.Right:
-                    rightArrowDown = true;
-                    leftArrowDown = false;
-                    upArrowDown = false;
-                    downArrowDown = false;
-                    break;
-                case Keys.Up:
-                    upArrowDown = true;
-                    downArrowDown = false;
-                    leftArrowDown = false;
-                    rightArrowDown = false;
-                    break;
-                case Keys.Space:
-                    spaceDown = true;
-                    break;
+                switch (e.KeyCode)
+                {
+                    case Keys.Down:
+                        downArrowDown = true;
+                        upArrowDown = false;
+                        break;
+                    case Keys.Up:
+                        upArrowDown = true;
+                        downArrowDown = false;
+                        break;                        
+                }
+            }
+            
+            else
+            {
+                switch (e.KeyCode)
+                {
+                    case Keys.Right:
+                        rightArrowDown = true;
+                        leftArrowDown = false;
+                        break;
+                    case Keys.Left:
+                        leftArrowDown = true;
+                        rightArrowDown = false;
+                        break;
+                }
             }
         }
 
@@ -178,7 +195,7 @@ namespace You_Slide_Blocks
                     blockY = 34;
                 }
             }
-            
+
             //Border Restrictions
 
             //TODO move npc characters
@@ -186,18 +203,21 @@ namespace You_Slide_Blocks
 
 
             //TODO collisions checks 
-            
+            for (int i = 0; i < blockXList.Count; i++)
+            {
+                Rectangle blockRec = new Rectangle(blockXList[i], blockYList[i], blockWidthList[i], blockLengthList[i]);
+            }
 
             //calls the GameScreen_Paint method to draw the screen.
             Refresh();
         }
 
 
-        //Everything that is to be drawn on the screen should be done here
+        //Drawn on Screen
         private void GameScreen_Paint(object sender, PaintEventArgs e)
         {
             //Blocks
-            e.Graphics.FillRectangle(blocksBrush, 11, 33, 284, 284);
+            e.Graphics.FillRectangle(backGroundColor, 11, 33, 278, 278);
 
             //draw rectangle to screen
             e.Graphics.FillRectangle(blockBrush, blockX, blockY, blockWidth, blockLength);
@@ -208,8 +228,10 @@ namespace You_Slide_Blocks
             e.Graphics.FillRectangle(borderBrush, this.Width-11, 0, 11, this.Height);
             e.Graphics.FillRectangle(borderBrush, 0, this.Height-11, this.Width, 11);
 
-
+            for (int i = 0; i < blockXList.Count; i++)
+            {
+                e.Graphics.FillRectangle(blocksBrush, blockXList[i], blockYList[i], blockWidthList[i], blockLengthList[i]);
+            }
         }
     }
-
 }
