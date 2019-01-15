@@ -20,20 +20,21 @@ namespace You_Slide_Blocks
         int minutesCounter = 0;
 
         //Player Controls
-        Boolean leftArrowDown, downArrowDown, rightArrowDown, upArrowDown, bDown, nDown, mDown, spaceDown, timer;
+        Boolean leftArrowDown, downArrowDown, rightArrowDown, upArrowDown, bDown, nDown, mDown, spaceDown, timer, forward, backward;
 
         //Player's Block
-        int blockX, blockY, blockWidth, blockLength, blockSpeed;
+        int blockX, bYLis, blockWidth, blockLength, blockSpeed, block;
         SolidBrush blockBrush = new SolidBrush(Color.Brown);
 
         //Blocks
         SolidBrush blocksBrush = new SolidBrush(Color.SandyBrown);
 
         List<int> levelList = new List<int>();
-        List<int> blockWidthList = new List<int>();
-        List<int> blockLengthList = new List<int>();
-        List<int> blockXList = new List<int>();
-        List<int> blockYList = new List<int>();
+        List<int> bWidthList = new List<int>();
+        List<int> bLengthList = new List<int>();
+        List<int> bXList = new List<int>();
+        List<int> bYList = new List<int>();
+        List<int> bCount = new List<int>();
 
         SolidBrush backGroundColor = new SolidBrush(Color.White);
 
@@ -47,17 +48,22 @@ namespace You_Slide_Blocks
 
         public void InitializeGameValues()
         {
-            blockX = 12;
-            blockY = 126;
-            blockWidth = 90;
-            blockLength = 45;
             blockSpeed = 15;
+            block = 0;
 
+            //Player Block
+            bCount.Add(0);
+            bXList.Add(12);
+            bYList.Add(126);
+            bWidthList.Add(91);
+            bLengthList.Add(45);
 
-            blockXList.Add(12);
-            blockYList.Add(34);
-            blockWidthList.Add(45);
-            blockLengthList.Add(91);
+            //Obstacles
+            bCount.Add(1);
+            bXList.Add(12);
+            bYList.Add(34);
+            bWidthList.Add(45);
+            bLengthList.Add(91);
 
             if (timer == true)
             {
@@ -78,7 +84,7 @@ namespace You_Slide_Blocks
             if (e.KeyCode == Keys.Escape && gameTimer.Enabled)
             {
                 gameTimer.Enabled = false;
-                rightArrowDown = leftArrowDown = upArrowDown = downArrowDown = false;
+                rightArrowDown = leftArrowDown = upArrowDown = downArrowDown = forward = backward = false;
 
                 DialogResult result = PauseForm.Show();
 
@@ -93,7 +99,8 @@ namespace You_Slide_Blocks
             }
 
             //player 1 button presses
-            if (blockX == 45 && blockY < 45)
+
+            if (bXList.Count == 45 && bYList.Count < 45)
             {
                 switch (e.KeyCode)
                 {
@@ -122,6 +129,16 @@ namespace You_Slide_Blocks
                         break;
                 }
             }
+
+            switch (e.KeyCode)
+            {
+                case Keys.M:
+                    forward = true;
+                    break;
+                case Keys.N:
+                    backward = true;
+                    break;
+            }
         }
 
         private void GameScreen_KeyUp(object sender, KeyEventArgs e)
@@ -147,65 +164,81 @@ namespace You_Slide_Blocks
                 case Keys.Space:
                     spaceDown = false;
                     break;
+                case Keys.M:
+                    forward = false;
+                    break;
+                case Keys.N:
+                    backward = false;
+                    break;
             }
         }
 
         /// <summary>
-        /// Timer
+        /// Um Dont know yet
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void gameTimer_Tick(object sender, EventArgs e)
         {
+            int count = 0;
             //Main Controls
-            if (leftArrowDown == true)
+
+            //Switches to another Block
+            if (forward == true)
             {
-                blockX = blockX - blockSpeed;
-
-                if (blockX < 12)
-                {
-                    blockX = 12;
-                }
-
+                count++;
             }
-            if (downArrowDown == true)
+            if (backward == true)
             {
-                blockY = blockY + blockSpeed;
-
-                if (blockY > this.Height - 58)
-                {
-                    blockY = this.Height - 58;
-                }
-            }
-            if (rightArrowDown == true)
-            {
-                blockX = blockX + blockSpeed;
-
-                if (blockX > this.Width - 103)
-                {
-                    blockX = this.Width - 103;
-                }
-            }
-            if (upArrowDown == true)
-            {
-                blockY = blockY - blockSpeed;
-
-                if (blockY < 34)
-                {
-                    blockY = 34;
-                }
+                count--;
             }
 
-            //Border Restrictions
-
-            //TODO move npc characters
-
-
-
-            //TODO collisions checks 
-            for (int i = 0; i < blockXList.Count; i++)
+            //Moving the Blocks
+            if (count == bCount)
             {
-                Rectangle blockRec = new Rectangle(blockXList[i], blockYList[i], blockWidthList[i], blockLengthList[i]);
+                if (leftArrowDown == true)
+                {
+                    bXList[count] = bXList[count] - blockSpeed;
+
+                    if (bXList[count] < 12)
+                    {
+                        bXList[count] = 12;
+                    }
+
+                }
+                if (downArrowDown == true)
+                {
+                    bYList[count] = bYList[count] + blockSpeed;
+
+                    if (bYList[count] > this.Height - 58)
+                    {
+                        bYList[count] = this.Height - 58;
+                    }
+                }
+                if (rightArrowDown == true)
+                {
+                    blockX = blockX + blockSpeed;
+
+                    if (bXList[count] > this.Width - 103)
+                    {
+                        bXList[count] = this.Width - 103;
+                    }
+                }
+                if (upArrowDown == true)
+                {
+                    bYList[count] = bYList[count] - blockSpeed;
+
+                    if (bYList[count] < 34)
+                    {
+                        bYList[count] = 34;
+                    }
+                }
+            }
+
+            //Collisions
+            for (int i = 0; i < bXList.Count; i++)
+            {
+                Rectangle blockRec = new Rectangle(bXList[i], bYList[i], bWidthList[i], bLengthList[i]);
             }
 
             //calls the GameScreen_Paint method to draw the screen.
@@ -216,11 +249,14 @@ namespace You_Slide_Blocks
         //Drawn on Screen
         private void GameScreen_Paint(object sender, PaintEventArgs e)
         {
-            //Blocks
+            //Background
             e.Graphics.FillRectangle(backGroundColor, 11, 33, 278, 278);
 
-            //draw rectangle to screen
-            e.Graphics.FillRectangle(blockBrush, blockX, blockY, blockWidth, blockLength);
+            //Blocks
+            for (int i = 0; i < bCount.Count; i++)
+            {
+                e.Graphics.FillRectangle(blocksBrush, bXList[i], bYList[i], bWidthList[i], bLengthList[i]);
+            }
 
             //Border
             e.Graphics.FillRectangle(borderBrush, 0, 0, 10, this.Height);
@@ -228,10 +264,7 @@ namespace You_Slide_Blocks
             e.Graphics.FillRectangle(borderBrush, this.Width-11, 0, 11, this.Height);
             e.Graphics.FillRectangle(borderBrush, 0, this.Height-11, this.Width, 11);
 
-            for (int i = 0; i < blockXList.Count; i++)
-            {
-                e.Graphics.FillRectangle(blocksBrush, blockXList[i], blockYList[i], blockWidthList[i], blockLengthList[i]);
-            }
+            
         }
     }
 }
