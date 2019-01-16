@@ -38,6 +38,7 @@ namespace You_Slide_Blocks
         List<int> bXList = new List<int>();
         List<int> bYList = new List<int>();
         List<int> bCount = new List<int>();
+        List<Boolean> move = new List<bool>();
 
         SolidBrush backGroundColor = new SolidBrush(Color.White);
 
@@ -58,6 +59,7 @@ namespace You_Slide_Blocks
             bCount.Add(0);
             bXList.Add(12);
             bYList.Add(126);
+            //Change Block into Rectangles
             bWidthList.Add(91);
             bHeightList.Add(45);
 
@@ -105,8 +107,6 @@ namespace You_Slide_Blocks
             int blockX = bHeightList[cValue];
             int blockY = bWidthList[cValue];
 
-            if (bWidthList[cValue] == 45 && bHeightList[cValue] > 45)
-            {
                 switch (e.KeyCode)
                 {
                     case Keys.Down:
@@ -118,10 +118,7 @@ namespace You_Slide_Blocks
                         downArrowDown = false;
                         break;                        
                 }
-            }
-            
-            else
-            {
+
                 switch (e.KeyCode)
                 {
                     case Keys.Right:
@@ -133,7 +130,6 @@ namespace You_Slide_Blocks
                         rightArrowDown = false;
                         break;
                 }
-            }
 
             switch (e.KeyCode)
             {
@@ -240,7 +236,6 @@ namespace You_Slide_Blocks
                 Rectangle blockRec = new Rectangle(bXList[i], bYList[i], bWidthList[i], bHeightList[i]);
             }
 
-            //calls the GameScreen_Paint method to draw the screen.
             Refresh();
         }
 
