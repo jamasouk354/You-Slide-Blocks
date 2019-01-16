@@ -18,6 +18,9 @@ namespace You_Slide_Blocks
         int hundredsCounter = 0;
         int secondsCounter = 0;
         int minutesCounter = 0;
+        int currentPiece = 0;
+
+        int cValue = 0;
 
         //Player Controls
         Boolean leftArrowDown, downArrowDown, rightArrowDown, upArrowDown, bDown, nDown, mDown, spaceDown, timer, forward, backward;
@@ -31,7 +34,7 @@ namespace You_Slide_Blocks
 
         List<int> levelList = new List<int>();
         List<int> bWidthList = new List<int>();
-        List<int> bLengthList = new List<int>();
+        List<int> bHeightList = new List<int>();
         List<int> bXList = new List<int>();
         List<int> bYList = new List<int>();
         List<int> bCount = new List<int>();
@@ -56,14 +59,14 @@ namespace You_Slide_Blocks
             bXList.Add(12);
             bYList.Add(126);
             bWidthList.Add(91);
-            bLengthList.Add(45);
+            bHeightList.Add(45);
 
             //Obstacles
             bCount.Add(1);
             bXList.Add(12);
             bYList.Add(34);
             bWidthList.Add(45);
-            bLengthList.Add(91);
+            bHeightList.Add(91);
 
             if (timer == true)
             {
@@ -99,8 +102,10 @@ namespace You_Slide_Blocks
             }
 
             //player 1 button presses
+            int blockX = bHeightList[cValue];
+            int blockY = bWidthList[cValue];
 
-            if (bXList.Count == 45 && bYList.Count < 45)
+            if (bWidthList[cValue] == 45 && bHeightList[cValue] > 45)
             {
                 switch (e.KeyCode)
                 {
@@ -173,72 +178,66 @@ namespace You_Slide_Blocks
             }
         }
 
-        /// <summary>
-        /// Um Dont know yet
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+
         private void gameTimer_Tick(object sender, EventArgs e)
         {
-            int count = 0;
             //Main Controls
 
             //Switches to another Block
             if (forward == true)
             {
-                count++;
+                currentPiece++;
+                forward = false;
             }
             if (backward == true)
             {
-                count--;
+                currentPiece--;
+                backward = false;
             }
 
             //Moving the Blocks
-            if (count == bCount)
-            {
                 if (leftArrowDown == true)
                 {
-                    bXList[count] = bXList[count] - blockSpeed;
+                    bXList[currentPiece] = bXList[currentPiece] - blockSpeed;
 
-                    if (bXList[count] < 12)
+                    if (bXList[currentPiece] < 12)
                     {
-                        bXList[count] = 12;
+                        bXList[currentPiece] = 12;
                     }
 
                 }
                 if (downArrowDown == true)
                 {
-                    bYList[count] = bYList[count] + blockSpeed;
+                    bYList[currentPiece] = bYList[currentPiece] + blockSpeed;
 
-                    if (bYList[count] > this.Height - 58)
+                    if (bYList[currentPiece] > this.Height - 58)
                     {
-                        bYList[count] = this.Height - 58;
+                        bYList[currentPiece] = this.Height - 58;
                     }
                 }
                 if (rightArrowDown == true)
                 {
-                    blockX = blockX + blockSpeed;
+                    bXList[currentPiece] = bXList[currentPiece] + blockSpeed;
 
-                    if (bXList[count] > this.Width - 103)
+                    if (bXList[currentPiece] > this.Width - 103)
                     {
-                        bXList[count] = this.Width - 103;
+                        bXList[currentPiece] = this.Width - 103;
                     }
                 }
                 if (upArrowDown == true)
                 {
-                    bYList[count] = bYList[count] - blockSpeed;
+                    bYList[currentPiece] = bYList[currentPiece] - blockSpeed;
 
-                    if (bYList[count] < 34)
+                    if (bYList[currentPiece] < 34)
                     {
-                        bYList[count] = 34;
+                        bYList[currentPiece] = 34;
                     }
                 }
-            }
 
             //Collisions
             for (int i = 0; i < bXList.Count; i++)
             {
-                Rectangle blockRec = new Rectangle(bXList[i], bYList[i], bWidthList[i], bLengthList[i]);
+                Rectangle blockRec = new Rectangle(bXList[i], bYList[i], bWidthList[i], bHeightList[i]);
             }
 
             //calls the GameScreen_Paint method to draw the screen.
@@ -255,7 +254,7 @@ namespace You_Slide_Blocks
             //Blocks
             for (int i = 0; i < bCount.Count; i++)
             {
-                e.Graphics.FillRectangle(blocksBrush, bXList[i], bYList[i], bWidthList[i], bLengthList[i]);
+                e.Graphics.FillRectangle(blocksBrush, bXList[i], bYList[i], bWidthList[i], bHeightList[i]);
             }
 
             //Border
