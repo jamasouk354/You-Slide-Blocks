@@ -104,35 +104,29 @@ namespace You_Slide_Blocks
             }
 
             //player 1 button presses
-            int blockX = bHeightList[cValue];
-            int blockY = bWidthList[cValue];
-
-                switch (e.KeyCode)
-                {
-                    case Keys.Down:
-                        downArrowDown = true;
-                        upArrowDown = false;
-                        break;
-                    case Keys.Up:
-                        upArrowDown = true;
-                        downArrowDown = false;
-                        break;                        
-                }
-
-                switch (e.KeyCode)
-                {
-                    case Keys.Right:
-                        rightArrowDown = true;
-                        leftArrowDown = false;
-                        break;
-                    case Keys.Left:
-                        leftArrowDown = true;
-                        rightArrowDown = false;
-                        break;
-                }
 
             switch (e.KeyCode)
             {
+                case Keys.Down:
+                    downArrowDown = true;
+                    leftArrowDown = false;
+                    rightArrowDown = false;
+                    break;
+                case Keys.Up:
+                    upArrowDown = true;
+                    leftArrowDown = false;
+                    rightArrowDown = false;
+                    break;
+                case Keys.Right:
+                    rightArrowDown = true;
+                    upArrowDown = false;
+                    downArrowDown = false;
+                    break;
+                case Keys.Left:
+                    leftArrowDown = true;
+                    upArrowDown = false;
+                    downArrowDown = false;
+                    break;
                 case Keys.M:
                     forward = true;
                     break;
