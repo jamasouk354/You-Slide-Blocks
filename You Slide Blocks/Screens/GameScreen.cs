@@ -272,16 +272,16 @@ namespace You_Slide_Blocks
                 bYList[currentPiece] = bYList[currentPiece] - blockSpeed;
             }
             
-            for (int i = 0; i < tempX; i++)
+            for (int i = 0; i < borderX.Count; i++)
             {
-
+                Rectangle borderRec = new Rectangle(borderX[i], borderY[i], borderWidth[i], borderHeight[i]);
             }
             //Collisions
             for (int i = 0; i < bXList.Count; i++)
             {
                 Rectangle blockRec = new Rectangle(bXList[i], bYList[i], bWidthList[i], bHeightList[i]);
 
-                if (blockRec.IntersectsWith(blockRec))
+                if (blockRec.IntersectsWith(borderRec))
                 {
                     bXList[currentPiece] = tempX;
                     bYList[currentPiece] = tempY;
@@ -305,11 +305,16 @@ namespace You_Slide_Blocks
             }
 
             //Border
-            //add these to a List
+            for (int i = 0; i < bXList.Count; i++)
+            {
+                e.Graphics.FillRectangle(borderBrush, borderX[i], borderY[i], borderWidth[i], borderHeight[i]);
+            }
+            /*
             e.Graphics.FillRectangle(borderBrush, 0, 0, 10, this.Height);
             e.Graphics.FillRectangle(borderBrush, 0, 0, this.Width, 32);
             e.Graphics.FillRectangle(borderBrush, this.Width-11, 0, 11, this.Height);
-            e.Graphics.FillRectangle(borderBrush, 0, this.Height-11, this.Width, 11);           
+            e.Graphics.FillRectangle(borderBrush, 0, this.Height-11, this.Width, 11);
+            */
         }
     }
 }
