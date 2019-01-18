@@ -134,7 +134,15 @@ namespace You_Slide_Blocks
             borderY.Add(0);
             borderY.Add(0);
             borderY.Add(0);
-            borderY.Add(0);
+            borderY.Add(his.Height-11);
+            borderWidth.Add(10);
+            borderWidth.Add(this.Width);
+            borderWidth.Add(11);
+            borderWidth.Add(this.Width);
+            borderHeight.Add(this.Height);
+            borderHeight.Add(32);
+            borderHeight.Add(this.Height);
+            borderHeight.Add(11);
 
         }
 
