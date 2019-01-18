@@ -127,6 +127,15 @@ namespace You_Slide_Blocks
             e.Graphics.FillRectangle(borderBrush, 0, this.Height-11, this.Width, 11);
              */
             //Border
+            borderX.Add(0);
+            borderX.Add(0);
+            borderX.Add(this.Width-11);
+            borderX.Add(0);
+            borderY.Add(0);
+            borderY.Add(0);
+            borderY.Add(0);
+            borderY.Add(0);
+
         }
 
         private void GameScreen_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
