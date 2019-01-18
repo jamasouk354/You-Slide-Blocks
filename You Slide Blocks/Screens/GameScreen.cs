@@ -37,7 +37,6 @@ namespace You_Slide_Blocks
         List<int> bHeightList = new List<int>();
         List<int> bXList = new List<int>();
         List<int> bYList = new List<int>();
-        List<int> bCount = new List<int>();
         List<Boolean> move = new List<bool>();
 
         SolidBrush backGroundColor = new SolidBrush(Color.White);
@@ -56,30 +55,66 @@ namespace You_Slide_Blocks
             block = 0;
 
             //Player Block
-            bCount.Add(0);
             bXList.Add(12);
             bYList.Add(126);
-            //Change Block into Rectangles
-            bWidthList.Add(91);
+            bWidthList.Add(90);
             bHeightList.Add(45);
 
-            //Obstacles
-            bCount.Add(1);
+            ///Obstacles
+            
+            //1x2
             bXList.Add(12);
             bYList.Add(34);
             bWidthList.Add(45);
             bHeightList.Add(91);
 
-            if (timer == true)
-            {
-                gameTimer.Interval = 20;
-                gameTimer.Enabled = true;
-            }
-            //DO LATER
-            else if (timer == false)
-            {
+            //2x1
+            bXList.Add(103);
+            bYList.Add(34);
+            bWidthList.Add(91);
+            bHeightList.Add(45);
 
-            }
+            //3x1
+            bXList.Add(58);
+            bYList.Add(80);
+            bWidthList.Add(136);
+            bHeightList.Add(45);
+
+            //1x3
+            bXList.Add(195);
+            bYList.Add(34);
+            bWidthList.Add(45);
+            bHeightList.Add(137);
+
+            //1x3
+            bXList.Add(241);
+            bYList.Add(126);
+            bWidthList.Add(45);
+            bHeightList.Add(137);
+
+            //1x2
+            bXList.Add(103);
+            bYList.Add(172);
+            bWidthList.Add(91);
+            bHeightList.Add(45);
+
+            //1x2
+            bXList.Add(149);
+            bYList.Add(218);
+            bWidthList.Add(91);
+            bHeightList.Add(45);
+
+            //2x1
+            bXList.Add(57);
+            bYList.Add(172);
+            bWidthList.Add(45);
+            bHeightList.Add(91);
+
+            //2x1
+            bXList.Add(103);
+            bYList.Add(218);
+            bWidthList.Add(45);
+            bHeightList.Add(91);
         }
 
         private void GameScreen_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
@@ -228,6 +263,14 @@ namespace You_Slide_Blocks
             for (int i = 0; i < bXList.Count; i++)
             {
                 Rectangle blockRec = new Rectangle(bXList[i], bYList[i], bWidthList[i], bHeightList[i]);
+
+                if (blockRec.IntersectsWith(blockRec))
+                {
+                    leftArrowDown = false;
+                    upArrowDown = false;
+                    rightArrowDown = false;
+                    downArrowDown = false;
+                }
             }
 
             Refresh();
@@ -238,10 +281,11 @@ namespace You_Slide_Blocks
         private void GameScreen_Paint(object sender, PaintEventArgs e)
         {
             //Background
-            e.Graphics.FillRectangle(backGroundColor, 11, 33, 278, 278);
+            e.Graphics.FillRectangle(backGroundColor, 11, 33, 276, 277);
 
             //Blocks
-            for (int i = 0; i < bCount.Count; i++)
+
+            for (int i = 0; i < bXList.Count; i++)
             {
                 e.Graphics.FillRectangle(blocksBrush, bXList[i], bYList[i], bWidthList[i], bHeightList[i]);
             }
@@ -250,9 +294,7 @@ namespace You_Slide_Blocks
             e.Graphics.FillRectangle(borderBrush, 0, 0, 10, this.Height);
             e.Graphics.FillRectangle(borderBrush, 0, 0, this.Width, 32);
             e.Graphics.FillRectangle(borderBrush, this.Width-11, 0, 11, this.Height);
-            e.Graphics.FillRectangle(borderBrush, 0, this.Height-11, this.Width, 11);
-
-            
+            e.Graphics.FillRectangle(borderBrush, 0, this.Height-11, this.Width, 11);           
         }
     }
 }
