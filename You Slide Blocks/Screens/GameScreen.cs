@@ -23,7 +23,7 @@ namespace You_Slide_Blocks
         int cValue = 0;
 
         //Player Controls
-        Boolean leftArrowDown, downArrowDown, rightArrowDown, upArrowDown, bDown, nDown, mDown, spaceDown, timer, forward, backward;
+        Boolean leftArrowDown, downArrowDown, rightArrowDown, upArrowDown, spaceDown, timer, forward, backward;
 
         //Player's Block
         int blockX, bYLis, blockWidth, blockLength, blockSpeed, block;
@@ -37,7 +37,11 @@ namespace You_Slide_Blocks
         List<int> bHeightList = new List<int>();
         List<int> bXList = new List<int>();
         List<int> bYList = new List<int>();
-        List<Boolean> move = new List<bool>();
+
+        List<int> borderX = new List<int>();
+        List<int> borderY = new List<int>();
+        List<int> borderWidth = new List<int>();
+        List<int> borderHeight = new List<int>();
 
         SolidBrush backGroundColor = new SolidBrush(Color.White);
 
@@ -173,6 +177,8 @@ namespace You_Slide_Blocks
 
         private void GameScreen_KeyUp(object sender, KeyEventArgs e)
         {
+            
+
             //TODO - basic player 1 key up bools set below. Add remainging key up
             // required for player 1 or player 2 here.
 
@@ -220,45 +226,31 @@ namespace You_Slide_Blocks
                 backward = false;
             }
 
+            int tempX = bXList[currentPiece];
+            int tempY = bYList[currentPiece];
+
             //Moving the Blocks
-                if (leftArrowDown == true)
-                {
-                    bXList[currentPiece] = bXList[currentPiece] - blockSpeed;
+            if (leftArrowDown == true)
+            {
+                bXList[currentPiece] = bXList[currentPiece] - blockSpeed;
+            }
+            if (downArrowDown == true)
+            {
+                bYList[currentPiece] = bYList[currentPiece] + blockSpeed;
+            }
+            if (rightArrowDown == true)
+            {
+                bXList[currentPiece] = bXList[currentPiece] + blockSpeed;
+            }
+            if (upArrowDown == true)
+            {
+                bYList[currentPiece] = bYList[currentPiece] - blockSpeed;
+            }
+            
+            for (int i = 0; i < tempX; i++)
+            {
 
-                    if (bXList[currentPiece] < 12)
-                    {
-                        bXList[currentPiece] = 12;
-                    }
-
-                }
-                if (downArrowDown == true)
-                {
-                    bYList[currentPiece] = bYList[currentPiece] + blockSpeed;
-
-                    if (bYList[currentPiece] > this.Height - 58)
-                    {
-                        bYList[currentPiece] = this.Height - 58;
-                    }
-                }
-                if (rightArrowDown == true)
-                {
-                    bXList[currentPiece] = bXList[currentPiece] + blockSpeed;
-
-                    if (bXList[currentPiece] > this.Width - 103)
-                    {
-                        bXList[currentPiece] = this.Width - 103;
-                    }
-                }
-                if (upArrowDown == true)
-                {
-                    bYList[currentPiece] = bYList[currentPiece] - blockSpeed;
-
-                    if (bYList[currentPiece] < 34)
-                    {
-                        bYList[currentPiece] = 34;
-                    }
-                }
-
+            }
             //Collisions
             for (int i = 0; i < bXList.Count; i++)
             {
@@ -266,13 +258,10 @@ namespace You_Slide_Blocks
 
                 if (blockRec.IntersectsWith(blockRec))
                 {
-                    leftArrowDown = false;
-                    upArrowDown = false;
-                    rightArrowDown = false;
-                    downArrowDown = false;
+                    bXList[currentPiece] = tempX;
+                    bYList[currentPiece] = tempY;
                 }
             }
-
             Refresh();
         }
 
@@ -291,6 +280,7 @@ namespace You_Slide_Blocks
             }
 
             //Border
+            //add these to a List
             e.Graphics.FillRectangle(borderBrush, 0, 0, 10, this.Height);
             e.Graphics.FillRectangle(borderBrush, 0, 0, this.Width, 32);
             e.Graphics.FillRectangle(borderBrush, this.Width-11, 0, 11, this.Height);
