@@ -134,7 +134,7 @@ namespace You_Slide_Blocks
             borderY.Add(0);
             borderY.Add(0);
             borderY.Add(0);
-            borderY.Add(his.Height-11);
+            borderY.Add(this.Height-11);
             borderWidth.Add(10);
             borderWidth.Add(this.Width);
             borderWidth.Add(11);
@@ -143,7 +143,6 @@ namespace You_Slide_Blocks
             borderHeight.Add(32);
             borderHeight.Add(this.Height);
             borderHeight.Add(11);
-
         }
 
         private void GameScreen_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
@@ -271,15 +270,13 @@ namespace You_Slide_Blocks
             {
                 bYList[currentPiece] = bYList[currentPiece] - blockSpeed;
             }
-            
-            for (int i = 0; i < borderX.Count; i++)
-            {
-                Rectangle borderRec = new Rectangle(borderX[i], borderY[i], borderWidth[i], borderHeight[i]);
-            }
+
             //Collisions
-            for (int i = 0; i < bXList.Count; i++)
+            for (int i = 0; i < bXList.Count && i < borderX.Count; i++)
             {
                 Rectangle blockRec = new Rectangle(bXList[i], bYList[i], bWidthList[i], bHeightList[i]);
+
+                Rectangle borderRec = new Rectangle(borderX[i], borderY[i], borderWidth[i], borderHeight[i]);
 
                 if (blockRec.IntersectsWith(borderRec))
                 {
@@ -305,7 +302,7 @@ namespace You_Slide_Blocks
             }
 
             //Border
-            for (int i = 0; i < bXList.Count; i++)
+            for (int i = 0; i < borderX.Count; i++)
             {
                 e.Graphics.FillRectangle(borderBrush, borderX[i], borderY[i], borderWidth[i], borderHeight[i]);
             }
