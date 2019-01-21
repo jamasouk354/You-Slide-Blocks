@@ -299,7 +299,8 @@ namespace You_Slide_Blocks
             for (int i = 0; i < borderX.Count; i++)
             {
                 e.Graphics.FillRectangle(borderBrush, borderX[i], borderY[i], borderWidth[i], borderHeight[i]);
-            }           
+            }
+            
         }
     }
 }
