@@ -23,7 +23,7 @@ namespace You_Slide_Blocks
         int cValue = 0;
 
         //Player Controls
-        Boolean leftArrowDown, downArrowDown, rightArrowDown, upArrowDown, spaceDown, timer, forward, backward;
+        Boolean leftArrowDown, downArrowDown, rightArrowDown, upArrowDown, spaceDown, timer = false, forward, backward;
 
         //Player's Block
         int blockX, bYLis, blockWidth, blockLength, blockSpeed, block;
