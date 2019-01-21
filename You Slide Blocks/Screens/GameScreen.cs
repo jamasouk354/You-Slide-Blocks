@@ -23,7 +23,7 @@ namespace You_Slide_Blocks
         int cValue = 0;
 
         //Player Controls
-        Boolean leftArrowDown, downArrowDown, rightArrowDown, upArrowDown, spaceDown, timer = false, forward, backward;
+        Boolean leftArrowDown, downArrowDown, rightArrowDown, upArrowDown, spaceDown, timer, forward, backward;
 
         //Player's Block
         int blockX, bYLis, blockWidth, blockLength, blockSpeed, block;
@@ -55,7 +55,7 @@ namespace You_Slide_Blocks
 
         public void InitializeGameValues()
         {
-            blockSpeed = 15;
+            blockSpeed = 46;
             block = 0;
 
             //Player Block
@@ -73,9 +73,9 @@ namespace You_Slide_Blocks
             bHeightList.Add(91);
 
             //2x1
-            bXList.Add(103);
+            bXList.Add(104);
             bYList.Add(34);
-            bWidthList.Add(91);
+            bWidthList.Add(90);
             bHeightList.Add(45);
 
             //3x1
@@ -97,35 +97,29 @@ namespace You_Slide_Blocks
             bHeightList.Add(137);
 
             //1x2
-            bXList.Add(103);
+            bXList.Add(104);
             bYList.Add(172);
-            bWidthList.Add(91);
+            bWidthList.Add(90);
             bHeightList.Add(45);
 
             //1x2
-            bXList.Add(149);
+            bXList.Add(150);
             bYList.Add(218);
-            bWidthList.Add(91);
+            bWidthList.Add(90);
             bHeightList.Add(45);
 
             //2x1
-            bXList.Add(57);
+            bXList.Add(58);
             bYList.Add(172);
             bWidthList.Add(45);
             bHeightList.Add(91);
 
             //2x1
-            bXList.Add(103);
+            bXList.Add(104);
             bYList.Add(218);
             bWidthList.Add(45);
             bHeightList.Add(91);
 
-            /*
-            e.Graphics.FillRectangle(borderBrush, 0, 0, 10, this.Height);
-            e.Graphics.FillRectangle(borderBrush, 0, 0, this.Width, 32);
-            e.Graphics.FillRectangle(borderBrush, this.Width-11, 0, 11, this.Height);
-            e.Graphics.FillRectangle(borderBrush, 0, this.Height-11, this.Width, 11);
-             */
             //Border
             borderX.Add(0);
             borderX.Add(0);
@@ -134,7 +128,7 @@ namespace You_Slide_Blocks
             borderY.Add(0);
             borderY.Add(0);
             borderY.Add(0);
-            borderY.Add(this.Height-11);
+            borderY.Add(this.Height - 11);
             borderWidth.Add(10);
             borderWidth.Add(this.Width);
             borderWidth.Add(11);
@@ -270,7 +264,7 @@ namespace You_Slide_Blocks
             {
                 bYList[currentPiece] = bYList[currentPiece] - blockSpeed;
             }
-
+            
             //Collisions
             for (int i = 0; i < bXList.Count && i < borderX.Count; i++)
             {
@@ -305,13 +299,7 @@ namespace You_Slide_Blocks
             for (int i = 0; i < borderX.Count; i++)
             {
                 e.Graphics.FillRectangle(borderBrush, borderX[i], borderY[i], borderWidth[i], borderHeight[i]);
-            }
-            /*
-            e.Graphics.FillRectangle(borderBrush, 0, 0, 10, this.Height);
-            e.Graphics.FillRectangle(borderBrush, 0, 0, this.Width, 32);
-            e.Graphics.FillRectangle(borderBrush, this.Width-11, 0, 11, this.Height);
-            e.Graphics.FillRectangle(borderBrush, 0, this.Height-11, this.Width, 11);
-            */
+            }           
         }
     }
 }
