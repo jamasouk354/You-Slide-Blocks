@@ -252,6 +252,8 @@ namespace You_Slide_Blocks
             Rectangle botRightBord = new Rectangle(this.Width - 11, 172, 11, this.Height);
             Rectangle botBord = new Rectangle(0, this.Height - 11, this.Width, 11);
 
+            Rectangle finBord = new Rectangle(this.Width - 11, 126, 11, 45);
+
             //Collisions
             for (int i = 0; i < bXList.Count && i < borderX.Count; i++)
             {
@@ -287,6 +289,9 @@ namespace You_Slide_Blocks
             e.Graphics.FillRectangle(borderBrush, this.Width - 11, 0, 11, 125);
             e.Graphics.FillRectangle(borderBrush, this.Width - 11, 172, 11, this.Height);
             e.Graphics.FillRectangle(borderBrush, 0, this.Height - 11, this.Width, 11);
+            
+            //Finish zone
+            e.Graphics.FillRectangle(borderBrush, this.Width - 11, 126, 11, 45);
         }
     }
 }
