@@ -46,6 +46,9 @@ namespace You_Slide_Blocks
 
         //Border
         SolidBrush borderBrush = new SolidBrush(Color.Firebrick);
+
+        SolidBrush finishBrush = new SolidBrush(Color.DarkGray);
+
         public GameScreen()
         {
             InitializeComponent();
@@ -224,8 +227,8 @@ namespace You_Slide_Blocks
                 backward = false;
             }
 
-            int tempX = bXList.Location.X;
-            int tempY = bYList.Location.Y;
+            int tempX = bXList[currentPiece];
+            int tempY = bYList[currentPiece];
 
             //Moving the Blocks
 
@@ -262,8 +265,8 @@ namespace You_Slide_Blocks
                 if (blockRec.IntersectsWith(leftBord) || blockRec.IntersectsWith(topRightBord) || blockRec.IntersectsWith(topBord) 
                     || blockRec.IntersectsWith(botBord) || blockRec.IntersectsWith(botRightBord))
                 {
-                    tempX = -tempX;
-                    tempY = -tempY;
+                    bXList[currentPiece] = tempX;
+                    bYList[currentPiece] = tempY;
                 }
             }
             Refresh();
@@ -276,6 +279,9 @@ namespace You_Slide_Blocks
             //Background
             e.Graphics.FillRectangle(backGroundColor, 11, 33, 276, 277);
 
+            //Finish Zone
+            e.Graphics.FillRectangle(finishBrush, this.Width - 11, 125, 11, 47);
+
             //Blocks
 
             for (int i = 0; i < bXList.Count; i++)
@@ -286,12 +292,9 @@ namespace You_Slide_Blocks
             //Border
             e.Graphics.FillRectangle(borderBrush, 0, 0, this.Width, 32);
             e.Graphics.FillRectangle(borderBrush, 0, 0, 10, this.Height);
-            e.Graphics.FillRectangle(borderBrush, this.Width - 11, 0, 11, 125);
-            e.Graphics.FillRectangle(borderBrush, this.Width - 11, 172, 11, this.Height);
+            e.Graphics.FillRectangle(borderBrush, this.Width - 11, 0, 11, 124);
+            e.Graphics.FillRectangle(borderBrush, this.Width - 11, 173, 11, this.Height);
             e.Graphics.FillRectangle(borderBrush, 0, this.Height - 11, this.Width, 11);
-            
-            //Finish zone
-            e.Graphics.FillRectangle(borderBrush, this.Width - 11, 126, 11, 45);
         }
     }
 }
