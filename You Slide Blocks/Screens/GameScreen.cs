@@ -224,8 +224,8 @@ namespace You_Slide_Blocks
                 backward = false;
             }
 
-            int tempX = block.X;
-            int tempY = block.Y;
+            int tempX = bXList.Location.X;
+            int tempY = bYList.Location.Y;
 
             //Moving the Blocks
 
