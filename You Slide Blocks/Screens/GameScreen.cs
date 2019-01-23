@@ -251,25 +251,34 @@ namespace You_Slide_Blocks
             
             Rectangle topBord = new Rectangle(0, 0, this.Width, 32);
             Rectangle leftBord = new Rectangle(0, 0, 10, this.Height);
-            Rectangle topRightBord = new Rectangle(this.Width - 11, 0, 11, this.Height);
+            Rectangle topRightBord = new Rectangle(this.Width - 11, 0, 11, 124);
             Rectangle botRightBord = new Rectangle(this.Width - 11, 172, 11, this.Height);
             Rectangle botBord = new Rectangle(0, this.Height - 11, this.Width, 11);
 
             Rectangle finBord = new Rectangle(this.Width - 11, 126, 11, 45);
+
+            Rectangle currentBlock = new Rectangle(bXList[currentPiece], bYList[currentPiece], bWidthList[currentPiece], bHeightList[currentPiece]);
 
             //Collisions
             for (int i = 0; i < bXList.Count; i++)
             {
                 Rectangle blockRec = new Rectangle(bXList[i], bYList[i], bWidthList[i], bHeightList[i]);
 
-                if (leftBord.IntersectsWith(blockRec) || topRightBord.IntersectsWith(blockRec) || botRightBord.IntersectsWith(blockRec) 
+                if (leftBord.IntersectsWith(blockRec) || topRightBord.IntersectsWith(blockRec) || botRightBord.IntersectsWith(blockRec)
                     || botBord.IntersectsWith(blockRec) || topBord.IntersectsWith(blockRec))
                 {
                     bXList[currentPiece] = tempX;
-                    bYList[currentPiece] = tempY;
+                    bYList[currentPiece] = tempY;                    
                 }
-            }
-            
+                if (i != currentPiece)
+                {
+                    if (blockRec.IntersectsWith(currentBlock))
+                    {
+                        bXList[currentPiece] = tempX;
+                        bYList[currentPiece] = tempY;
+                    }
+                }
+            }          
             Refresh();
         }
 
@@ -287,6 +296,11 @@ namespace You_Slide_Blocks
             for (int i = 0; i < bXList.Count; i++)
             {
                 e.Graphics.FillRectangle(blocksBrush, bXList[i], bYList[i], bWidthList[i], bHeightList[i]);
+
+                if (i != currentPiece)
+                {
+                    e.Graphics.FillRectangle(blockBrush, bXList[currentPiece], bYList[currentPiece], bWidthList[currentPiece], bHeightList[currentPiece]);
+                }
             }
 
             //Border
