@@ -270,6 +270,10 @@ namespace You_Slide_Blocks
                     bXList[currentPiece] = tempX;
                     bYList[currentPiece] = tempY;                    
                 }
+                if (finBord.IntersectsWith(currentBlock))
+                {
+
+                }
                 if (i != currentPiece)
                 {
                     if (blockRec.IntersectsWith(currentBlock))
