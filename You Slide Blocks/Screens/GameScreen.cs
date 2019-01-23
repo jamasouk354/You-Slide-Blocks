@@ -258,17 +258,18 @@ namespace You_Slide_Blocks
             Rectangle finBord = new Rectangle(this.Width - 11, 126, 11, 45);
 
             //Collisions
-            for (int i = 0; i < bXList.Count && i < borderX.Count; i++)
+            for (int i = 0; i < bXList.Count; i++)
             {
                 Rectangle blockRec = new Rectangle(bXList[i], bYList[i], bWidthList[i], bHeightList[i]);
 
-                if (blockRec.IntersectsWith(leftBord) || blockRec.IntersectsWith(topRightBord) || blockRec.IntersectsWith(topBord) 
-                    || blockRec.IntersectsWith(botBord) || blockRec.IntersectsWith(botRightBord))
+                if (leftBord.IntersectsWith(blockRec) || topRightBord.IntersectsWith(blockRec) || botRightBord.IntersectsWith(blockRec) 
+                    || botBord.IntersectsWith(blockRec) || topBord.IntersectsWith(blockRec))
                 {
                     bXList[currentPiece] = tempX;
                     bYList[currentPiece] = tempY;
                 }
             }
+            
             Refresh();
         }
 
@@ -283,7 +284,6 @@ namespace You_Slide_Blocks
             e.Graphics.FillRectangle(finishBrush, this.Width - 11, 125, 11, 47);
 
             //Blocks
-
             for (int i = 0; i < bXList.Count; i++)
             {
                 e.Graphics.FillRectangle(blocksBrush, bXList[i], bYList[i], bWidthList[i], bHeightList[i]);
