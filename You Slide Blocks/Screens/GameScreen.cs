@@ -221,7 +221,8 @@ namespace You_Slide_Blocks
                 currentPiece--;
                 backward = false;
             }
-
+            
+            //loop blocks
             if (currentPiece > 10) { currentPiece = 0; }
             if (currentPiece < 0) { currentPiece = 10; }
 
