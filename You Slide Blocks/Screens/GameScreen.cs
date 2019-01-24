@@ -223,8 +223,8 @@ namespace You_Slide_Blocks
             }
             
             //loop blocks
-            if (currentPiece > 10) { currentPiece = 0; }
-            if (currentPiece < 0) { currentPiece = 10; }
+            if (currentPiece == 11) { currentPiece = 0; }
+            if (currentPiece == -1) { currentPiece = 10; }
 
             int tempX = bXList[currentPiece];
             int tempY = bYList[currentPiece];
