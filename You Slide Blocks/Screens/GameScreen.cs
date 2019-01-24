@@ -23,10 +23,10 @@ namespace You_Slide_Blocks
         int cValue = 0;
 
         //Player Controls
-        Boolean leftArrowDown, downArrowDown, rightArrowDown, upArrowDown, spaceDown, timer, forward, backward;
+        Boolean leftArrowDown, downArrowDown, rightArrowDown, upArrowDown, timer, forward, backward;
 
         //Player's Block
-        int bX, bY, bWidth, bHeight, blockSpeed, block;
+        int blockSpeed;
         SolidBrush blockBrush = new SolidBrush(Color.Brown);
 
         //Blocks
@@ -133,14 +133,9 @@ namespace You_Slide_Blocks
 
                 DialogResult result = PauseForm.Show();
 
-                if (result == DialogResult.Cancel)
-                {
-                    gameTimer.Enabled = true;
-                }
-                else if (result == DialogResult.Abort)
-                {
-                    MainForm.ChangeScreen(this, "MenuScreen");
-                }
+                if (result == DialogResult.Cancel) { gameTimer.Enabled = true; }
+
+                else if (result == DialogResult.Abort) { MainForm.ChangeScreen(this, "MenuScreen"); }
             }
 
             //player 1 button presses
@@ -227,9 +222,12 @@ namespace You_Slide_Blocks
                 backward = false;
             }
 
+            if (currentPiece > 10) { currentPiece = 0; }
+            if (currentPiece < 0) { currentPiece = 10; }
+
             int tempX = bXList[currentPiece];
             int tempY = bYList[currentPiece];
-
+            
             //Moving the Blocks
 
             if (leftArrowDown == true)
@@ -261,19 +259,18 @@ namespace You_Slide_Blocks
 
             //Collisions
             for (int i = 0; i < bXList.Count; i++)
-            {
+            {                
                 Rectangle blockRec = new Rectangle(bXList[i], bYList[i], bWidthList[i], bHeightList[i]);
 
+                //Collision w/Borders
                 if (leftBord.IntersectsWith(blockRec) || topRightBord.IntersectsWith(blockRec) || botRightBord.IntersectsWith(blockRec)
                     || botBord.IntersectsWith(blockRec) || topBord.IntersectsWith(blockRec))
                 {
                     bXList[currentPiece] = tempX;
                     bYList[currentPiece] = tempY;                    
-                }
-                if (finBord.IntersectsWith(currentBlock))
-                {
+                }                
 
-                }
+                //Collisions w/Other Blocks
                 if (i != currentPiece)
                 {
                     if (blockRec.IntersectsWith(currentBlock))
@@ -281,6 +278,12 @@ namespace You_Slide_Blocks
                         bXList[currentPiece] = tempX;
                         bYList[currentPiece] = tempY;
                     }
+                }
+
+                //Check if player Beated
+                if (finBord.IntersectsWith(currentBlock))
+                {
+                    outputLabel.Text = "Congratulations!";
                 }
             }          
             Refresh();
@@ -301,10 +304,7 @@ namespace You_Slide_Blocks
             {
                 e.Graphics.FillRectangle(blocksBrush, bXList[i], bYList[i], bWidthList[i], bHeightList[i]);
 
-                if (i != currentPiece)
-                {
-                    e.Graphics.FillRectangle(blockBrush, bXList[currentPiece], bYList[currentPiece], bWidthList[currentPiece], bHeightList[currentPiece]);
-                }
+                if (i != currentPiece) { e.Graphics.FillRectangle(blockBrush, bXList[currentPiece], bYList[currentPiece], bWidthList[currentPiece], bHeightList[currentPiece]); }
             }
 
             //Border
